@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>Chat</title>
+<script type="text/javascript">
+	var ws;
+	function init() {
+		ws = new WebSocket("ws://localhost:8080/websocket/chat");
+		ws.onopen = function() {
+		};
+		ws.onmessage = function(event) {
+			var message = event.data;
+			var chat = document.getElementById("chatId");
+			chat.value = chat.value + message + "\n";
+		};
+		ws.onclose = function() {
+			alert("Connection is closed");
+		};
+	}
+
+	function sendMessage() {
+		ws.send(document.getElementById("messageId").value);
+	}
+</script>
+</head>
+<body onload="init()">
+	<div>Chat</div>
+	<div>
+		<form>
+			<input id="messageId" type="text"> 
+			<input type="button" value="Send" onclick="sendMessage()">
+		</form>
+		<textarea id="chatId" rows="20" cols="30"></textarea>
+	</div>
+</body>
+</html>
