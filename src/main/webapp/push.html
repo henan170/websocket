@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Push</title>
+<script type="text/javascript">
+	var ws;
+	function init() {
+		ws = new WebSocket("ws://localhost:8080/websocket/push");
+		ws.onopen = function(event) {
+		};
+		ws.onmessage = function(event) {
+			var message = event.data;
+			var serverValueElement = document.getElementById("serverValueId");
+			serverValueElement.innerHTML = message;
+		};
+		ws.onclose = function(event) {
+			alert("Connection is closed");
+		};
+
+		ws.onerror = function(event) {
+			alert(event.data);
+		};
+	}
+</script>
+</head>
+<body onload="init()">
+	<div>Push</div>
+	<div>
+		Server Value: <span id="serverValueId"></span>
+	</div>
+</body>
+</html>
