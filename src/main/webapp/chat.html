@@ -2,23 +2,23 @@
 <head>
 <title>Chat</title>
 <script type="text/javascript">
-	var ws;
+	var websocket;
 	function init() {
-		ws = new WebSocket("ws://localhost:8080/websocket/chat");
-		ws.onopen = function() {
+		websocket = new WebSocket("ws://localhost:8080/websocket/chat");
+		websocket.onopen = function() {
 		};
-		ws.onmessage = function(event) {
+		websocket.onmessage = function(event) {
 			var message = event.data;
 			var chat = document.getElementById("chatId");
 			chat.value = chat.value + message + "\n";
 		};
-		ws.onclose = function() {
+		websocket.onclose = function() {
 			alert("Connection is closed");
 		};
 	}
 
 	function sendMessage() {
-		ws.send(document.getElementById("messageId").value);
+		websocket.send(document.getElementById("messageId").value);
 	}
 </script>
 </head>

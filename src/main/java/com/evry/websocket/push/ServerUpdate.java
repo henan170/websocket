@@ -19,7 +19,7 @@ public class ServerUpdate implements Callable<Boolean> {
 	public Boolean call() throws IOException {
 		while (run) {
 			value = (int) (Math.random() * 1000);
-			for (Session peer : peers) {				
+			for (Session peer : peers) {
 				peer.getBasicRemote().sendText(String.valueOf(value));
 			}
 			try {
@@ -30,10 +30,15 @@ public class ServerUpdate implements Callable<Boolean> {
 				return false;
 			}
 		}
+		System.out.println("Shutting down the server update.");
 		return true;
 	}
 
 	public int getValue() {
 		return value;
+	}
+
+	public void stop() {
+		run = false;
 	}
 }
